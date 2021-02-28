@@ -38,7 +38,6 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/recipes/:id/edit' do
-    binding.pry
     @recipe = Recipe.find_by(id: params[:id])
     @recipe_name = @recipe.name
     @recipe_ingredients = @recipe.ingredients
@@ -49,10 +48,11 @@ class ApplicationController < Sinatra::Base
   end
 
   patch '/recipes/:id' do
-    binding.pry
     @recipe = Recipe.find_by(id: params[:id])
-    @recipe.update(name: params[:name], ingredients: params[:ingredients], cook_time: params[:cook_time])
-
+    #also can do @recipe.udate(params[:recipe])
+    #this does NOT work: @recipe.update(name: params[:name], ingredients: params[:ingredients], cook_time: params[:cook_time])
+    @recipe.update(params)
+    binding.pry
     erb :show
   end
 
